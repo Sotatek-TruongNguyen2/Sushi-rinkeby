@@ -1,0 +1,481 @@
+diff --git a/node_modules/@sushiswap/sdk/dist/sdk.esm.js b/node_modules/@sushiswap/sdk/dist/sdk.esm.js
+index 719fa9c..bb81e69 100644
+--- a/node_modules/@sushiswap/sdk/dist/sdk.esm.js
++++ b/node_modules/@sushiswap/sdk/dist/sdk.esm.js
+@@ -1,15 +1,15 @@
+ import JSBI from 'jsbi';
+-export { default as JSBI } from 'jsbi';
++export {default as JSBI} from 'jsbi';
+ import invariant from 'tiny-invariant';
+ import warning from 'tiny-warning';
+-import { getAddress, getCreate2Address } from '@ethersproject/address';
++import {getAddress, getCreate2Address} from '@ethersproject/address';
+ import _Big from 'big.js';
+ import toFormat from 'toformat';
+ import _Decimal from 'decimal.js-light';
+-import { keccak256, pack } from '@ethersproject/solidity';
+-import { Contract } from '@ethersproject/contracts';
+-import { getNetwork } from '@ethersproject/networks';
+-import { getDefaultProvider } from '@ethersproject/providers';
++import {keccak256, pack} from '@ethersproject/solidity';
++import {Contract} from '@ethersproject/contracts';
++import {getNetwork} from '@ethersproject/networks';
++import {getDefaultProvider} from '@ethersproject/providers';
+ import IUniswapV2Pair from '@uniswap/v2-core/build/IUniswapV2Pair.json';
+ 
+ var _FACTORY_ADDRESS, _ROUTER_ADDRESS, _SUSHI_ADDRESS, _MASTERCHEF_ADDRESS, _BAR_ADDRESS, _MAKER_ADDRESS, _TIMELOCK_ADDRESS, _SOLIDITY_TYPE_MAXIMA;
+@@ -48,12 +48,12 @@ var Rounding;
+ })(Rounding || (Rounding = {}));
+ 
+ var INIT_CODE_HASH = '0xe18a34eb0e04b04f7a0ac29a6e80748dca96319b42c54d679cb821dca90c6303';
+-var FACTORY_ADDRESS = (_FACTORY_ADDRESS = {}, _FACTORY_ADDRESS[ChainId.MAINNET] = '0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac', _FACTORY_ADDRESS[ChainId.ROPSTEN] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.RINKEBY] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.GÖRLI] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.KOVAN] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.FANTOM] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.FANTOM_TESTNET] = '', _FACTORY_ADDRESS[ChainId.MATIC] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.MATIC_TESTNET] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.XDAI] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.BSC] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.BSC_TESTNET] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.ARBITRUM] = '', _FACTORY_ADDRESS[ChainId.MOONBASE] = '0x2Ce3F07dD4c62b56a502E223A7cBE38b1d77A1b5', _FACTORY_ADDRESS);
+-var ROUTER_ADDRESS = (_ROUTER_ADDRESS = {}, _ROUTER_ADDRESS[ChainId.MAINNET] = '0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F', _ROUTER_ADDRESS[ChainId.RINKEBY] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.ROPSTEN] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.GÖRLI] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.KOVAN] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.FANTOM] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.FANTOM_TESTNET] = '', _ROUTER_ADDRESS[ChainId.MATIC] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.MATIC_TESTNET] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.XDAI] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.BSC] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.BSC_TESTNET] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.ARBITRUM] = '', _ROUTER_ADDRESS[ChainId.MOONBASE] = '0xeB5c2BB5E83B51d83F3534Ae21E84336B8B376ef', _ROUTER_ADDRESS);
+-var SUSHI_ADDRESS = (_SUSHI_ADDRESS = {}, _SUSHI_ADDRESS[ChainId.MAINNET] = '0x6B3595068778DD592e39A122f4f5a5cF09C90fE2', _SUSHI_ADDRESS[ChainId.ROPSTEN] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[ChainId.RINKEBY] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[ChainId.GÖRLI] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[ChainId.KOVAN] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[ChainId.FANTOM] = '', _SUSHI_ADDRESS[ChainId.FANTOM_TESTNET] = '', _SUSHI_ADDRESS[ChainId.MATIC] = '', _SUSHI_ADDRESS[ChainId.MATIC_TESTNET] = '', _SUSHI_ADDRESS[ChainId.XDAI] = '', _SUSHI_ADDRESS[ChainId.BSC] = '', _SUSHI_ADDRESS[ChainId.BSC_TESTNET] = '', _SUSHI_ADDRESS[ChainId.ARBITRUM] = '', _SUSHI_ADDRESS[ChainId.MOONBASE] = '', _SUSHI_ADDRESS);
+-var MASTERCHEF_ADDRESS = (_MASTERCHEF_ADDRESS = {}, _MASTERCHEF_ADDRESS[ChainId.MAINNET] = '0xc2EdaD668740f1aA35E4D8f227fB8E17dcA888Cd', _MASTERCHEF_ADDRESS[ChainId.ROPSTEN] = '0x80C7DD17B01855a6D2347444a0FCC36136a314de', _MASTERCHEF_ADDRESS[ChainId.RINKEBY] = '0x80C7DD17B01855a6D2347444a0FCC36136a314de', _MASTERCHEF_ADDRESS[ChainId.GÖRLI] = '0x80C7DD17B01855a6D2347444a0FCC36136a314de', _MASTERCHEF_ADDRESS[ChainId.KOVAN] = '0x80C7DD17B01855a6D2347444a0FCC36136a314de', _MASTERCHEF_ADDRESS[ChainId.FANTOM] = '', _MASTERCHEF_ADDRESS[ChainId.FANTOM_TESTNET] = '', _MASTERCHEF_ADDRESS[ChainId.MATIC] = '', _MASTERCHEF_ADDRESS[ChainId.MATIC_TESTNET] = '', _MASTERCHEF_ADDRESS[ChainId.XDAI] = '', _MASTERCHEF_ADDRESS[ChainId.BSC] = '', _MASTERCHEF_ADDRESS[ChainId.BSC_TESTNET] = '', _MASTERCHEF_ADDRESS[ChainId.ARBITRUM] = '', _MASTERCHEF_ADDRESS[ChainId.MOONBASE] = '', _MASTERCHEF_ADDRESS);
+-var BAR_ADDRESS = (_BAR_ADDRESS = {}, _BAR_ADDRESS[ChainId.MAINNET] = '0x8798249c2E607446EfB7Ad49eC89dD1865Ff4272', _BAR_ADDRESS[ChainId.ROPSTEN] = '0x1be211D8DA40BC0ae8719c6663307Bfc987b1d6c', _BAR_ADDRESS[ChainId.RINKEBY] = '0x1be211D8DA40BC0ae8719c6663307Bfc987b1d6c', _BAR_ADDRESS[ChainId.GÖRLI] = '0x1be211D8DA40BC0ae8719c6663307Bfc987b1d6c', _BAR_ADDRESS[ChainId.KOVAN] = '0x1be211D8DA40BC0ae8719c6663307Bfc987b1d6c', _BAR_ADDRESS[ChainId.FANTOM] = '', _BAR_ADDRESS[ChainId.FANTOM_TESTNET] = '', _BAR_ADDRESS[ChainId.MATIC] = '', _BAR_ADDRESS[ChainId.MATIC_TESTNET] = '', _BAR_ADDRESS[ChainId.XDAI] = '', _BAR_ADDRESS[ChainId.BSC] = '', _BAR_ADDRESS[ChainId.BSC_TESTNET] = '', _BAR_ADDRESS[ChainId.ARBITRUM] = '', _BAR_ADDRESS[ChainId.MOONBASE] = '', _BAR_ADDRESS);
+-var MAKER_ADDRESS = (_MAKER_ADDRESS = {}, _MAKER_ADDRESS[ChainId.MAINNET] = '0xE11fc0B43ab98Eb91e9836129d1ee7c3Bc95df50', _MAKER_ADDRESS[ChainId.ROPSTEN] = '0x1b9d177CcdeA3c79B6c8F40761fc8Dc9d0500EAa', _MAKER_ADDRESS[ChainId.RINKEBY] = '0x1b9d177CcdeA3c79B6c8F40761fc8Dc9d0500EAa', _MAKER_ADDRESS[ChainId.GÖRLI] = '0x1b9d177CcdeA3c79B6c8F40761fc8Dc9d0500EAa', _MAKER_ADDRESS[ChainId.KOVAN] = '0x1b9d177CcdeA3c79B6c8F40761fc8Dc9d0500EAa', _MAKER_ADDRESS[ChainId.FANTOM] = '', _MAKER_ADDRESS[ChainId.FANTOM_TESTNET] = '', _MAKER_ADDRESS[ChainId.MATIC] = '', _MAKER_ADDRESS[ChainId.MATIC_TESTNET] = '', _MAKER_ADDRESS[ChainId.XDAI] = '', _MAKER_ADDRESS[ChainId.BSC] = '', _MAKER_ADDRESS[ChainId.BSC_TESTNET] = '', _MAKER_ADDRESS[ChainId.ARBITRUM] = '', _MAKER_ADDRESS[ChainId.MOONBASE] = '', _MAKER_ADDRESS);
++var FACTORY_ADDRESS = (_FACTORY_ADDRESS = {}, _FACTORY_ADDRESS[ChainId.MAINNET] = '0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac', _FACTORY_ADDRESS[ChainId.ROPSTEN] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.RINKEBY] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.GÖRLI] = '0x0fdf4b623594fdC2786c72C7577ADF468B15E57A', _FACTORY_ADDRESS[ChainId.KOVAN] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.FANTOM] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.FANTOM_TESTNET] = '', _FACTORY_ADDRESS[ChainId.MATIC] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.MATIC_TESTNET] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.XDAI] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.BSC] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.BSC_TESTNET] = '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', _FACTORY_ADDRESS[ChainId.ARBITRUM] = '', _FACTORY_ADDRESS[ChainId.MOONBASE] = '0x2Ce3F07dD4c62b56a502E223A7cBE38b1d77A1b5', _FACTORY_ADDRESS);
++var ROUTER_ADDRESS = (_ROUTER_ADDRESS = {}, _ROUTER_ADDRESS[ChainId.MAINNET] = '0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F', _ROUTER_ADDRESS[ChainId.RINKEBY] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.ROPSTEN] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.GÖRLI] = '0xd5b5e5dc5ed30b93EAD74107BD7bD0A8408a30D2', _ROUTER_ADDRESS[ChainId.KOVAN] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.FANTOM] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.FANTOM_TESTNET] = '', _ROUTER_ADDRESS[ChainId.MATIC] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.MATIC_TESTNET] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.XDAI] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.BSC] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.BSC_TESTNET] = '0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506', _ROUTER_ADDRESS[ChainId.ARBITRUM] = '', _ROUTER_ADDRESS[ChainId.MOONBASE] = '0xeB5c2BB5E83B51d83F3534Ae21E84336B8B376ef', _ROUTER_ADDRESS);
++var SUSHI_ADDRESS = (_SUSHI_ADDRESS = {}, _SUSHI_ADDRESS[ChainId.MAINNET] = '0x6B3595068778DD592e39A122f4f5a5cF09C90fE2', _SUSHI_ADDRESS[ChainId.ROPSTEN] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[ChainId.RINKEBY] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[ChainId.GÖRLI] = '0x6536da895447F91959ba9Abf0abacB1f69dF8066', _SUSHI_ADDRESS[ChainId.KOVAN] = '0x0769fd68dFb93167989C6f7254cd0D766Fb2841F', _SUSHI_ADDRESS[ChainId.FANTOM] = '', _SUSHI_ADDRESS[ChainId.FANTOM_TESTNET] = '', _SUSHI_ADDRESS[ChainId.MATIC] = '', _SUSHI_ADDRESS[ChainId.MATIC_TESTNET] = '', _SUSHI_ADDRESS[ChainId.XDAI] = '', _SUSHI_ADDRESS[ChainId.BSC] = '', _SUSHI_ADDRESS[ChainId.BSC_TESTNET] = '', _SUSHI_ADDRESS[ChainId.ARBITRUM] = '', _SUSHI_ADDRESS[ChainId.MOONBASE] = '', _SUSHI_ADDRESS);
++var MASTERCHEF_ADDRESS = (_MASTERCHEF_ADDRESS = {}, _MASTERCHEF_ADDRESS[ChainId.MAINNET] = '0xc2EdaD668740f1aA35E4D8f227fB8E17dcA888Cd', _MASTERCHEF_ADDRESS[ChainId.ROPSTEN] = '0x80C7DD17B01855a6D2347444a0FCC36136a314de', _MASTERCHEF_ADDRESS[ChainId.RINKEBY] = '0x80C7DD17B01855a6D2347444a0FCC36136a314de', _MASTERCHEF_ADDRESS[ChainId.GÖRLI] = '0xA323e958A00A5432f48ad827d05b00C0fDE9ba51', _MASTERCHEF_ADDRESS[ChainId.KOVAN] = '0x80C7DD17B01855a6D2347444a0FCC36136a314de', _MASTERCHEF_ADDRESS[ChainId.FANTOM] = '', _MASTERCHEF_ADDRESS[ChainId.FANTOM_TESTNET] = '', _MASTERCHEF_ADDRESS[ChainId.MATIC] = '', _MASTERCHEF_ADDRESS[ChainId.MATIC_TESTNET] = '', _MASTERCHEF_ADDRESS[ChainId.XDAI] = '', _MASTERCHEF_ADDRESS[ChainId.BSC] = '', _MASTERCHEF_ADDRESS[ChainId.BSC_TESTNET] = '', _MASTERCHEF_ADDRESS[ChainId.ARBITRUM] = '', _MASTERCHEF_ADDRESS[ChainId.MOONBASE] = '', _MASTERCHEF_ADDRESS);
++var BAR_ADDRESS = (_BAR_ADDRESS = {}, _BAR_ADDRESS[ChainId.MAINNET] = '0x8798249c2E607446EfB7Ad49eC89dD1865Ff4272', _BAR_ADDRESS[ChainId.ROPSTEN] = '0x1be211D8DA40BC0ae8719c6663307Bfc987b1d6c', _BAR_ADDRESS[ChainId.RINKEBY] = '0x1be211D8DA40BC0ae8719c6663307Bfc987b1d6c', _BAR_ADDRESS[ChainId.GÖRLI] = '0x0e288b18EF48D85cCd06765B585CE8BF69f2929B', _BAR_ADDRESS[ChainId.KOVAN] = '0x1be211D8DA40BC0ae8719c6663307Bfc987b1d6c', _BAR_ADDRESS[ChainId.FANTOM] = '', _BAR_ADDRESS[ChainId.FANTOM_TESTNET] = '', _BAR_ADDRESS[ChainId.MATIC] = '', _BAR_ADDRESS[ChainId.MATIC_TESTNET] = '', _BAR_ADDRESS[ChainId.XDAI] = '', _BAR_ADDRESS[ChainId.BSC] = '', _BAR_ADDRESS[ChainId.BSC_TESTNET] = '', _BAR_ADDRESS[ChainId.ARBITRUM] = '', _BAR_ADDRESS[ChainId.MOONBASE] = '', _BAR_ADDRESS);
++var MAKER_ADDRESS = (_MAKER_ADDRESS = {}, _MAKER_ADDRESS[ChainId.MAINNET] = '0xE11fc0B43ab98Eb91e9836129d1ee7c3Bc95df50', _MAKER_ADDRESS[ChainId.ROPSTEN] = '0x1b9d177CcdeA3c79B6c8F40761fc8Dc9d0500EAa', _MAKER_ADDRESS[ChainId.RINKEBY] = '0x1b9d177CcdeA3c79B6c8F40761fc8Dc9d0500EAa', _MAKER_ADDRESS[ChainId.GÖRLI] = '0x8B9e8a7D06EF0F555557891Ed8963785dEB7eDC2', _MAKER_ADDRESS[ChainId.KOVAN] = '0x1b9d177CcdeA3c79B6c8F40761fc8Dc9d0500EAa', _MAKER_ADDRESS[ChainId.FANTOM] = '', _MAKER_ADDRESS[ChainId.FANTOM_TESTNET] = '', _MAKER_ADDRESS[ChainId.MATIC] = '', _MAKER_ADDRESS[ChainId.MATIC_TESTNET] = '', _MAKER_ADDRESS[ChainId.XDAI] = '', _MAKER_ADDRESS[ChainId.BSC] = '', _MAKER_ADDRESS[ChainId.BSC_TESTNET] = '', _MAKER_ADDRESS[ChainId.ARBITRUM] = '', _MAKER_ADDRESS[ChainId.MOONBASE] = '', _MAKER_ADDRESS);
+ var TIMELOCK_ADDRESS = (_TIMELOCK_ADDRESS = {}, _TIMELOCK_ADDRESS[ChainId.MAINNET] = '0x9a8541Ddf3a932a9A922B607e9CF7301f1d47bD1', _TIMELOCK_ADDRESS[ChainId.ROPSTEN] = '', _TIMELOCK_ADDRESS[ChainId.RINKEBY] = '', _TIMELOCK_ADDRESS[ChainId.GÖRLI] = '', _TIMELOCK_ADDRESS[ChainId.KOVAN] = '', _TIMELOCK_ADDRESS[ChainId.FANTOM] = '', _TIMELOCK_ADDRESS[ChainId.FANTOM_TESTNET] = '', _TIMELOCK_ADDRESS[ChainId.MATIC] = '', _TIMELOCK_ADDRESS[ChainId.MATIC_TESTNET] = '', _TIMELOCK_ADDRESS[ChainId.XDAI] = '', _TIMELOCK_ADDRESS[ChainId.BSC] = '', _TIMELOCK_ADDRESS[ChainId.BSC_TESTNET] = '', _TIMELOCK_ADDRESS[ChainId.ARBITRUM] = '', _TIMELOCK_ADDRESS[ChainId.MOONBASE] = '', _TIMELOCK_ADDRESS);
+ var MINIMUM_LIQUIDITY = /*#__PURE__*/JSBI.BigInt(1000); // exports for internal consumption
+ 
+@@ -303,7 +303,7 @@ function validateAndParseAddress(address) {
+     process.env.NODE_ENV !== "production" ? warning(address === checksummedAddress, address + " is not checksummed.") : void 0;
+     return checksummedAddress;
+   } catch (error) {
+-     process.env.NODE_ENV !== "production" ? invariant(false, address + " is not a valid address.") : invariant(false) ;
++    process.env.NODE_ENV !== "production" ? invariant(false, address + " is not a valid address.") : invariant(false);
+   }
+ }
+ function parseBigintIsh(bigintIsh) {
+@@ -347,7 +347,7 @@ function sortedInsert(items, add, maxSize, comparator) {
+     }
+ 
+     var lo = 0,
+-        hi = items.length;
++      hi = items.length;
+ 
+     while (lo < hi) {
+       var mid = lo + hi >>> 1;
+@@ -479,13 +479,13 @@ var Token = /*#__PURE__*/function (_Currency) {
+ 
+     return this.chainId === other.chainId && this.address === other.address;
+   }
+-  /**
+-   * Returns true if the address of this token sorts before the address of the other token
+-   * @param other other token to compare
+-   * @throws if the tokens have the same address
+-   * @throws if the tokens are on different chains
+-   */
+-  ;
++    /**
++     * Returns true if the address of this token sorts before the address of the other token
++     * @param other other token to compare
++     * @throws if the tokens have the same address
++     * @throws if the tokens are on different chains
++     */
++    ;
+ 
+   _proto.sortsBefore = function sortsBefore(other) {
+     !(this.chainId === other.chainId) ? process.env.NODE_ENV !== "production" ? invariant(false, 'CHAIN_IDS') : invariant(false) : void 0;
+@@ -764,8 +764,8 @@ var Price = /*#__PURE__*/function (_Fraction) {
+ 
+     for (var _iterator = _createForOfIteratorHelperLoose(route.pairs.entries()), _step; !(_step = _iterator()).done;) {
+       var _step$value = _step.value,
+-          i = _step$value[0],
+-          pair = _step$value[1];
++        i = _step$value[0],
++        pair = _step$value[1];
+       prices.push(route.path[i].equals(pair.token0) ? new Price(pair.reserve0.currency, pair.reserve1.currency, pair.reserve0.raw, pair.reserve1.raw) : new Price(pair.reserve1.currency, pair.reserve0.currency, pair.reserve1.raw, pair.reserve0.raw));
+     }
+ 
+@@ -787,7 +787,7 @@ var Price = /*#__PURE__*/function (_Fraction) {
+ 
+     return new Price(this.baseCurrency, other.quoteCurrency, fraction.denominator, fraction.numerator);
+   } // performs floor division on overflow
+-  ;
++    ;
+ 
+   _proto.quote = function quote(currencyAmount) {
+     !currencyEquals(currencyAmount.currency, this.baseCurrency) ? process.env.NODE_ENV !== "production" ? invariant(false, 'TOKEN') : invariant(false) : void 0;
+@@ -834,7 +834,7 @@ var PAIR_ADDRESS_CACHE = {};
+ var Pair = /*#__PURE__*/function () {
+   function Pair(tokenAmountA, tokenAmountB) {
+     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
+-    ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
++      ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
+     this.liquidityToken = new Token(tokenAmounts[0].token.chainId, Pair.getAddress(tokenAmounts[0].token, tokenAmounts[1].token), 18, 'UNI-V2', 'Uniswap V2');
+     this.tokenAmounts = tokenAmounts;
+   }
+@@ -852,21 +852,21 @@ var Pair = /*#__PURE__*/function () {
+ 
+     return PAIR_ADDRESS_CACHE[tokens[0].address][tokens[1].address];
+   }
+-  /**
+-   * Returns true if the token is either token0 or token1
+-   * @param token to check
+-   */
+-  ;
++    /**
++     * Returns true if the token is either token0 or token1
++     * @param token to check
++     */
++    ;
+ 
+   var _proto = Pair.prototype;
+ 
+   _proto.involvesToken = function involvesToken(token) {
+     return token.equals(this.token0) || token.equals(this.token1);
+   }
+-  /**
+-   * Returns the current mid price of the pair in terms of token0, i.e. the ratio of reserve1 to reserve0
+-   */
+-  ;
++    /**
++     * Returns the current mid price of the pair in terms of token0, i.e. the ratio of reserve1 to reserve0
++     */
++    ;
+ 
+   /**
+    * Return the price of the given token in terms of the other token in the pair.
+@@ -876,10 +876,10 @@ var Pair = /*#__PURE__*/function () {
+     !this.involvesToken(token) ? process.env.NODE_ENV !== "production" ? invariant(false, 'TOKEN') : invariant(false) : void 0;
+     return token.equals(this.token0) ? this.token0Price : this.token1Price;
+   }
+-  /**
+-   * Returns the chain ID of the tokens in the pair.
+-   */
+-  ;
++    /**
++     * Returns the chain ID of the tokens in the pair.
++     */
++    ;
+ 
+   _proto.reserveOf = function reserveOf(token) {
+     !this.involvesToken(token) ? process.env.NODE_ENV !== "production" ? invariant(false, 'TOKEN') : invariant(false) : void 0;
+@@ -925,7 +925,7 @@ var Pair = /*#__PURE__*/function () {
+   _proto.getLiquidityMinted = function getLiquidityMinted(totalSupply, tokenAmountA, tokenAmountB) {
+     !totalSupply.token.equals(this.liquidityToken) ? process.env.NODE_ENV !== "production" ? invariant(false, 'LIQUIDITY') : invariant(false) : void 0;
+     var tokenAmounts = tokenAmountA.token.sortsBefore(tokenAmountB.token) // does safety checks
+-    ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
++      ? [tokenAmountA, tokenAmountB] : [tokenAmountB, tokenAmountA];
+     !(tokenAmounts[0].token.equals(this.token0) && tokenAmounts[1].token.equals(this.token1)) ? process.env.NODE_ENV !== "production" ? invariant(false, 'TOKEN') : invariant(false) : void 0;
+     var liquidity;
+ 
+@@ -1037,8 +1037,8 @@ var Route = /*#__PURE__*/function () {
+ 
+     for (var _iterator = _createForOfIteratorHelperLoose(pairs.entries()), _step; !(_step = _iterator()).done;) {
+       var _step$value = _step.value,
+-          i = _step$value[0],
+-          pair = _step$value[1];
++        i = _step$value[0],
++        pair = _step$value[1];
+       var currentInput = path[i];
+       !(currentInput.equals(pair.token0) || currentInput.equals(pair.token1)) ? process.env.NODE_ENV !== "production" ? invariant(false, 'PATH') : invariant(false) : void 0;
+ 
+@@ -1162,13 +1162,13 @@ function tradeComparator(a, b) {
+ function wrappedAmount(currencyAmount, chainId) {
+   if (currencyAmount instanceof TokenAmount) return currencyAmount;
+   if (currencyAmount.currency === ETHER) return new TokenAmount(WETH[chainId], currencyAmount.raw);
+-   process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false) ;
++  process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false);
+ }
+ 
+ function wrappedCurrency(currency, chainId) {
+   if (currency instanceof Token) return currency;
+   if (currency === ETHER) return WETH[chainId];
+-   process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false) ;
++  process.env.NODE_ENV !== "production" ? invariant(false, 'CURRENCY') : invariant(false);
+ }
+ /**
+  * Represents a trade executed against a list of pairs.
+@@ -1189,8 +1189,8 @@ var Trade = /*#__PURE__*/function () {
+         var pair = route.pairs[i];
+ 
+         var _pair$getOutputAmount = pair.getOutputAmount(amounts[i]),
+-            outputAmount = _pair$getOutputAmount[0],
+-            nextPair = _pair$getOutputAmount[1];
++          outputAmount = _pair$getOutputAmount[0],
++          nextPair = _pair$getOutputAmount[1];
+ 
+         amounts[i + 1] = outputAmount;
+         nextPairs[i] = nextPair;
+@@ -1203,8 +1203,8 @@ var Trade = /*#__PURE__*/function () {
+         var _pair = route.pairs[_i - 1];
+ 
+         var _pair$getInputAmount = _pair.getInputAmount(amounts[_i]),
+-            inputAmount = _pair$getInputAmount[0],
+-            _nextPair = _pair$getInputAmount[1];
++          inputAmount = _pair$getInputAmount[0],
++          _nextPair = _pair$getInputAmount[1];
+ 
+         amounts[_i - 1] = inputAmount;
+         nextPairs[_i - 1] = _nextPair;
+@@ -1229,21 +1229,21 @@ var Trade = /*#__PURE__*/function () {
+   Trade.exactIn = function exactIn(route, amountIn) {
+     return new Trade(route, amountIn, TradeType.EXACT_INPUT);
+   }
+-  /**
+-   * Constructs an exact out trade with the given amount out and route
+-   * @param route route of the exact out trade
+-   * @param amountOut the amount returned by the trade
+-   */
+-  ;
++    /**
++     * Constructs an exact out trade with the given amount out and route
++     * @param route route of the exact out trade
++     * @param amountOut the amount returned by the trade
++     */
++    ;
+ 
+   Trade.exactOut = function exactOut(route, amountOut) {
+     return new Trade(route, amountOut, TradeType.EXACT_OUTPUT);
+   }
+-  /**
+-   * Get the minimum amount that must be received from this trade for the given slippage tolerance
+-   * @param slippageTolerance tolerance of unfavorable slippage from the execution price of this trade
+-   */
+-  ;
++    /**
++     * Get the minimum amount that must be received from this trade for the given slippage tolerance
++     * @param slippageTolerance tolerance of unfavorable slippage from the execution price of this trade
++     */
++    ;
+ 
+   var _proto = Trade.prototype;
+ 
+@@ -1257,11 +1257,11 @@ var Trade = /*#__PURE__*/function () {
+       return this.outputAmount instanceof TokenAmount ? new TokenAmount(this.outputAmount.token, slippageAdjustedAmountOut) : CurrencyAmount.ether(slippageAdjustedAmountOut);
+     }
+   }
+-  /**
+-   * Get the maximum amount in that can be spent via this trade for the given slippage tolerance
+-   * @param slippageTolerance tolerance of unfavorable slippage from the execution price of this trade
+-   */
+-  ;
++    /**
++     * Get the maximum amount in that can be spent via this trade for the given slippage tolerance
++     * @param slippageTolerance tolerance of unfavorable slippage from the execution price of this trade
++     */
++    ;
+ 
+   _proto.maximumAmountIn = function maximumAmountIn(slippageTolerance) {
+     !!slippageTolerance.lessThan(ZERO) ? process.env.NODE_ENV !== "production" ? invariant(false, 'SLIPPAGE_TOLERANCE') : invariant(false) : void 0;
+@@ -1273,29 +1273,29 @@ var Trade = /*#__PURE__*/function () {
+       return this.inputAmount instanceof TokenAmount ? new TokenAmount(this.inputAmount.token, slippageAdjustedAmountIn) : CurrencyAmount.ether(slippageAdjustedAmountIn);
+     }
+   }
+-  /**
+-   * Given a list of pairs, and a fixed amount in, returns the top `maxNumResults` trades that go from an input token
+-   * amount to an output token, making at most `maxHops` hops.
+-   * Note this does not consider aggregation, as routes are linear. It's possible a better route exists by splitting
+-   * the amount in among multiple routes.
+-   * @param pairs the pairs to consider in finding the best trade
+-   * @param currencyAmountIn exact amount of input currency to spend
+-   * @param currencyOut the desired currency out
+-   * @param maxNumResults maximum number of results to return
+-   * @param maxHops maximum number of hops a returned trade can make, e.g. 1 hop goes through a single pair
+-   * @param currentPairs used in recursion; the current list of pairs
+-   * @param originalAmountIn used in recursion; the original value of the currencyAmountIn parameter
+-   * @param bestTrades used in recursion; the current list of best trades
+-   */
+-  ;
++    /**
++     * Given a list of pairs, and a fixed amount in, returns the top `maxNumResults` trades that go from an input token
++     * amount to an output token, making at most `maxHops` hops.
++     * Note this does not consider aggregation, as routes are linear. It's possible a better route exists by splitting
++     * the amount in among multiple routes.
++     * @param pairs the pairs to consider in finding the best trade
++     * @param currencyAmountIn exact amount of input currency to spend
++     * @param currencyOut the desired currency out
++     * @param maxNumResults maximum number of results to return
++     * @param maxHops maximum number of hops a returned trade can make, e.g. 1 hop goes through a single pair
++     * @param currentPairs used in recursion; the current list of pairs
++     * @param originalAmountIn used in recursion; the original value of the currencyAmountIn parameter
++     * @param bestTrades used in recursion; the current list of best trades
++     */
++    ;
+ 
+   Trade.bestTradeExactIn = function bestTradeExactIn(pairs, currencyAmountIn, currencyOut, _temp, // used in recursion.
+-  currentPairs, originalAmountIn, bestTrades) {
++    currentPairs, originalAmountIn, bestTrades) {
+     var _ref = _temp === void 0 ? {} : _temp,
+-        _ref$maxNumResults = _ref.maxNumResults,
+-        maxNumResults = _ref$maxNumResults === void 0 ? 3 : _ref$maxNumResults,
+-        _ref$maxHops = _ref.maxHops,
+-        maxHops = _ref$maxHops === void 0 ? 3 : _ref$maxHops;
++      _ref$maxNumResults = _ref.maxNumResults,
++      maxNumResults = _ref$maxNumResults === void 0 ? 3 : _ref$maxNumResults,
++      _ref$maxHops = _ref.maxHops,
++      maxHops = _ref$maxHops === void 0 ? 3 : _ref$maxHops;
+ 
+     if (currentPairs === void 0) {
+       currentPairs = [];
+@@ -1354,30 +1354,30 @@ var Trade = /*#__PURE__*/function () {
+ 
+     return bestTrades;
+   }
+-  /**
+-   * similar to the above method but instead targets a fixed output amount
+-   * given a list of pairs, and a fixed amount out, returns the top `maxNumResults` trades that go from an input token
+-   * to an output token amount, making at most `maxHops` hops
+-   * note this does not consider aggregation, as routes are linear. it's possible a better route exists by splitting
+-   * the amount in among multiple routes.
+-   * @param pairs the pairs to consider in finding the best trade
+-   * @param currencyIn the currency to spend
+-   * @param currencyAmountOut the exact amount of currency out
+-   * @param maxNumResults maximum number of results to return
+-   * @param maxHops maximum number of hops a returned trade can make, e.g. 1 hop goes through a single pair
+-   * @param currentPairs used in recursion; the current list of pairs
+-   * @param originalAmountOut used in recursion; the original value of the currencyAmountOut parameter
+-   * @param bestTrades used in recursion; the current list of best trades
+-   */
+-  ;
++    /**
++     * similar to the above method but instead targets a fixed output amount
++     * given a list of pairs, and a fixed amount out, returns the top `maxNumResults` trades that go from an input token
++     * to an output token amount, making at most `maxHops` hops
++     * note this does not consider aggregation, as routes are linear. it's possible a better route exists by splitting
++     * the amount in among multiple routes.
++     * @param pairs the pairs to consider in finding the best trade
++     * @param currencyIn the currency to spend
++     * @param currencyAmountOut the exact amount of currency out
++     * @param maxNumResults maximum number of results to return
++     * @param maxHops maximum number of hops a returned trade can make, e.g. 1 hop goes through a single pair
++     * @param currentPairs used in recursion; the current list of pairs
++     * @param originalAmountOut used in recursion; the original value of the currencyAmountOut parameter
++     * @param bestTrades used in recursion; the current list of best trades
++     */
++    ;
+ 
+   Trade.bestTradeExactOut = function bestTradeExactOut(pairs, currencyIn, currencyAmountOut, _temp2, // used in recursion.
+-  currentPairs, originalAmountOut, bestTrades) {
++    currentPairs, originalAmountOut, bestTrades) {
+     var _ref2 = _temp2 === void 0 ? {} : _temp2,
+-        _ref2$maxNumResults = _ref2.maxNumResults,
+-        maxNumResults = _ref2$maxNumResults === void 0 ? 3 : _ref2$maxNumResults,
+-        _ref2$maxHops = _ref2.maxHops,
+-        maxHops = _ref2$maxHops === void 0 ? 3 : _ref2$maxHops;
++      _ref2$maxNumResults = _ref2.maxNumResults,
++      maxNumResults = _ref2$maxNumResults === void 0 ? 3 : _ref2$maxNumResults,
++      _ref2$maxHops = _ref2.maxHops,
++      maxHops = _ref2$maxHops === void 0 ? 3 : _ref2$maxHops;
+ 
+     if (currentPairs === void 0) {
+       currentPairs = [];
+@@ -1534,40 +1534,40 @@ var Router = /*#__PURE__*/function () {
+ }();
+ 
+ var ERC20 = [
+-	{
+-		constant: true,
+-		inputs: [
+-		],
+-		name: "decimals",
+-		outputs: [
+-			{
+-				name: "",
+-				type: "uint8"
+-			}
+-		],
+-		payable: false,
+-		stateMutability: "view",
+-		type: "function"
+-	},
+-	{
+-		constant: true,
+-		inputs: [
+-			{
+-				name: "",
+-				type: "address"
+-			}
+-		],
+-		name: "balanceOf",
+-		outputs: [
+-			{
+-				name: "",
+-				type: "uint256"
+-			}
+-		],
+-		payable: false,
+-		stateMutability: "view",
+-		type: "function"
+-	}
++  {
++    constant: true,
++    inputs: [
++    ],
++    name: "decimals",
++    outputs: [
++      {
++        name: "",
++        type: "uint8"
++      }
++    ],
++    payable: false,
++    stateMutability: "view",
++    type: "function"
++  },
++  {
++    constant: true,
++    inputs: [
++      {
++        name: "",
++        type: "address"
++      }
++    ],
++    name: "balanceOf",
++    outputs: [
++      {
++        name: "",
++        type: "uint256"
++      }
++    ],
++    payable: false,
++    stateMutability: "view",
++    type: "function"
++  }
+ ];
+ 
+ var _TOKEN_DECIMALS_CACHE;
+@@ -1616,13 +1616,13 @@ var Fetcher = /*#__PURE__*/function () {
+       return Promise.reject(e);
+     }
+   }
+-  /**
+-   * Fetches information about a pair and constructs a pair from the given two tokens.
+-   * @param tokenA first token
+-   * @param tokenB second token
+-   * @param provider the provider to use to fetch the data
+-   */
+-  ;
++    /**
++     * Fetches information about a pair and constructs a pair from the given two tokens.
++     * @param tokenA first token
++     * @param tokenB second token
++     * @param provider the provider to use to fetch the data
++     */
++    ;
+ 
+   Fetcher.fetchPairData = function fetchPairData(tokenA, tokenB, provider) {
+     try {
+@@ -1631,7 +1631,7 @@ var Fetcher = /*#__PURE__*/function () {
+       var address = Pair.getAddress(tokenA, tokenB);
+       return Promise.resolve(new Contract(address, IUniswapV2Pair.abi, provider).getReserves()).then(function (_ref) {
+         var reserves0 = _ref[0],
+-            reserves1 = _ref[1];
++          reserves1 = _ref[1];
+         var balances = tokenA.sortsBefore(tokenB) ? [reserves0, reserves1] : [reserves1, reserves0];
+         return new Pair(new TokenAmount(tokenA, balances[0]), new TokenAmount(tokenB, balances[1]));
+       });
+@@ -1643,5 +1643,5 @@ var Fetcher = /*#__PURE__*/function () {
+   return Fetcher;
+ }();
+ 
+-export { BAR_ADDRESS, ChainId, Currency, CurrencyAmount, ETHER, FACTORY_ADDRESS, Fetcher, Fraction, INIT_CODE_HASH, InsufficientInputAmountError, InsufficientReservesError, MAKER_ADDRESS, MASTERCHEF_ADDRESS, MINIMUM_LIQUIDITY, Pair, Percent, Price, ROUTER_ADDRESS, Rounding, Route, Router, SUSHI_ADDRESS, TIMELOCK_ADDRESS, Token, TokenAmount, Trade, TradeType, WETH, currencyEquals, inputOutputComparator, tradeComparator };
++export {BAR_ADDRESS, ChainId, Currency, CurrencyAmount, ETHER, FACTORY_ADDRESS, Fetcher, Fraction, INIT_CODE_HASH, InsufficientInputAmountError, InsufficientReservesError, MAKER_ADDRESS, MASTERCHEF_ADDRESS, MINIMUM_LIQUIDITY, Pair, Percent, Price, ROUTER_ADDRESS, Rounding, Route, Router, SUSHI_ADDRESS, TIMELOCK_ADDRESS, Token, TokenAmount, Trade, TradeType, WETH, currencyEquals, inputOutputComparator, tradeComparator};
+ //# sourceMappingURL=sdk.esm.js.map
